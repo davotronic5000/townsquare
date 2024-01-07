@@ -1791,6 +1791,17 @@
     "ability": "Each night*, choose a character: they die. If they are not in play, the Storyteller chooses who dies."
   },
   {
+    "id": "kazali",
+    "firstNight": 2.1,
+    "firstNightReminder": "The Kazali points at a player and a Minion on the character sheet. Repeat until the normal number of Minions exist.",
+    "otherNight": 32.2,
+    "otherNightReminder": "The Kazali points to a player. That player dies.",
+    "reminders": ["Dead"],
+    "name": "Kazali",
+    "team": "demon",
+    "ability": "Each night*, choose a player: they die. [You choose which players are which Minions. -? to +? Outsiders]"
+  },
+  {
     "id": "gangster",
     "name": "Gangster",
     "edition": "",
