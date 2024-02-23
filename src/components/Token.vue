@@ -7,8 +7,10 @@
         backgroundImage: `url(${
           role.image && grimoire.isImageOptIn
             ? role.image
-            : require('../assets/icons/' + (role.imageAlt || role.id) + '.png')
+            : grimoire.modernImages ? require('../assets/icons/modern/' + (role.imageAlt || role.id) +  '.webp') : require('../assets/icons/classic/' + (role.imageAlt || role.id) +  '.png')
         })`,
+        marginTop: grimoire.modernImages ? '0' : '3%' ,
+        marginBottom: grimoire.modernImages ? '10%' : '0', 
       }"
     ></span>
 
@@ -122,7 +124,6 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    margin-top: 3%;
   }
 
   span {

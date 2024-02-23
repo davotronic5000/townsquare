@@ -118,6 +118,7 @@ export const store = Vuex.createStore({
       isImageOptIn: false,
       zoom: 0,
       background: "",
+      modernImages: true,
     },
     modals: {
       edition: false,
@@ -184,6 +185,7 @@ export const store = Vuex.createStore({
     toggleNight: toggle("isNight"),
     toggleGrimoire: toggle("isPublic"),
     toggleImageOptIn: toggle("isImageOptIn"),
+    toggleModernImages: toggle("modernImages"),
     toggleModal({ modals }, name) {
       if (name) {
         modals[name] = !modals[name];

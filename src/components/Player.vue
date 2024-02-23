@@ -183,9 +183,7 @@
             backgroundImage: `url(${
               reminder.image && grimoire.isImageOptIn
                 ? reminder.image
-                : require('../assets/icons/' +
-                    (reminder.imageAlt || reminder.role) +
-                    '.png')
+                : grimoire.modernImages ? require('../assets/icons/modern/' + (reminder.imageAlt || reminder.role) +  '.webp') : require('../assets/icons/classic/' + (reminder.imageAlt || reminder.role) +  '.png')
             })`,
           }"
         ></span>

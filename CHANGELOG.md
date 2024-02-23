@@ -11,6 +11,7 @@
 - Added Fall of Rome and Indigestion Brewing to built in scripts, FoR roles are available to Plussy McOneface
 - Badger added for Plussy McOneface
 - Added support for new JSON format
+- Adding support for modern artwork with ability to switch to classic
 
 ---
 

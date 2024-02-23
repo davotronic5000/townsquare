@@ -1,5 +1,5 @@
-module.exports = store => {
-  const updatePagetitle = isPublic =>
+module.exports = (store) => {
+  const updatePagetitle = (isPublic) =>
     (document.title = `Blood on the Clocktower ${
       isPublic ? "Town Square" : "Grimoire"
     }`);
@@ -16,6 +16,9 @@ module.exports = store => {
   }
   if (localStorage.getItem("imageOptIn")) {
     store.commit("toggleImageOptIn", true);
+  }
+  if (localStorage.getItem("modernImages")) {
+    store.commit("toggleModernImages", false);
   }
   if (localStorage.getItem("zoom")) {
     store.commit("setZoom", parseFloat(localStorage.getItem("zoom")));
@@ -36,26 +39,26 @@ module.exports = store => {
     JSON.parse(localStorage.bluffs).forEach((role, index) => {
       store.commit("players/setBluff", {
         index,
-        role: store.state.roles.get(role) || {}
+        role: store.state.roles.get(role) || {},
       });
     });
   }
   if (localStorage.fabled !== undefined) {
     store.commit("players/setFabled", {
       fabled: JSON.parse(localStorage.fabled).map(
-        fabled => store.state.fabled.get(fabled.id) || fabled
-      )
+        (fabled) => store.state.fabled.get(fabled.id) || fabled
+      ),
     });
   }
   if (localStorage.players) {
     store.commit(
       "players/set",
-      JSON.parse(localStorage.players).map(player => ({
+      JSON.parse(localStorage.players).map((player) => ({
         ...player,
         role:
           store.state.roles.get(player.role) ||
           store.getters.rolesJSONbyId.get(player.role) ||
-          {}
+          {},
       }))
     );
   }
@@ -108,6 +111,13 @@ module.exports = store => {
           localStorage.removeItem("imageOptIn");
         }
         break;
+      case "toggleModernImages":
+        if (!state.grimoire.modernImages) {
+          localStorage.setItem("modernImages", 1);
+        } else {
+          localStorage.removeItem("modernImages");
+        }
+        break;
       case "setZoom":
         if (payload !== 0) {
           localStorage.setItem("zoom", payload);
@@ -138,7 +148,7 @@ module.exports = store => {
         localStorage.setItem(
           "fabled",
           JSON.stringify(
-            state.players.fabled.map(fabled =>
+            state.players.fabled.map((fabled) =>
               fabled.isCustom ? fabled : { id: fabled.id }
             )
           )
@@ -155,10 +165,10 @@ module.exports = store => {
           localStorage.setItem(
             "players",
             JSON.stringify(
-              state.players.players.map(player => ({
+              state.players.players.map((player) => ({
                 ...player,
                 // simplify the stored data
-                role: player.role.id || {}
+                role: player.role.id || {},
               }))
             )
           );
