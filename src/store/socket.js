@@ -1,5 +1,3 @@
-import { faBriefcaseClock } from "@fortawesome/free-solid-svg-icons";
-
 class LiveSession {
   constructor(store) {
     this._wss = "wss://townsquaremsg.clocktower.guru:8080/";

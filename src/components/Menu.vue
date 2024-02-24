@@ -60,7 +60,7 @@
           </li>
           <li @click="toggleReturnToTown" v-if="!session.isSpectator">
             <template v-if="!grimoire.isReturnToTown">Return To Town</template>
-            <template v-if="grimoire.isReturnToTown"><l style="color: rgb(174, 174, 174)"><i>Gathering...</i></l></template>
+            <template v-if="grimoire.isReturnToTown"><span style="color: rgb(174, 174, 174)"><i>Gathering...</i></span></template>
             <em>T</em>
           </li>
           <li @click="toggleNight" v-if="!session.isSpectator">
