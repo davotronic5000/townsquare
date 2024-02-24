@@ -118,6 +118,7 @@ export const store = Vuex.createStore({
       isImageOptIn: false,
       zoom: 0,
       background: "",
+      modernImages: true,
     },
     modals: {
       edition: false,
@@ -184,6 +185,7 @@ export const store = Vuex.createStore({
     toggleNight: toggle("isNight"),
     toggleGrimoire: toggle("isPublic"),
     toggleImageOptIn: toggle("isImageOptIn"),
+    toggleModernImages: toggle("modernImages"),
     toggleModal({ modals }, name) {
       if (name) {
         modals[name] = !modals[name];
@@ -267,6 +269,12 @@ export const store = Vuex.createStore({
           )
           .map((role) => [role.id, role])
       );
+      state.otherRoles = rolesJSON.filter(
+        (r) =>
+          r.team !== "traveler" &&
+          r.team !== "fabled" &&
+          !roles.some((i) => i.id === r.id)
+      );
     },
     setEdition(state, edition) {
       if (editionJSONbyId.has(edition.id)) {
@@ -274,6 +282,19 @@ export const store = Vuex.createStore({
         state.roles = getRolesByEdition(state.edition);
         state.otherTravelers = getTravelersNotInEdition(state.edition);
         state.otherRoles = getRolesNotInEdition(state.edition);
+
+        if (edition.roles);
+        {
+          if (edition.roles.some((role) => state.fabled.has(role.id || role))) {
+            const fabled = [];
+            edition.roles.forEach((role) => {
+              if (state.fabled.has(role.id || role)) {
+                fabled.push(state.fabled.get(role.id || role));
+              }
+            });
+            state.players.fabled = fabled;
+          }
+        }
       } else {
         state.edition = edition;
       }

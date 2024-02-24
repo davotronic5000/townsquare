@@ -100,6 +100,16 @@
                 ]"
             /></em>
           </li>
+          <li @click="showModernImages">
+          <small>Show Modern Images</small>
+          <em
+              ><font-awesome-icon
+                :icon="[
+                  'fas',
+                  grimoire.modernImages ? 'check-square' : 'square',
+                ]"
+            /></em>
+        </li>
           <li @click="toggleStatic">
             Disable Animations
             <em
@@ -216,11 +226,11 @@
             </em>
           </li>
           <li>
-            <a href="https://github.com/bra1n/townsquare" target="_blank">
+            <a href="https://github.com/davotronic5000/townsquare" target="_blank">
               Source code
             </a>
             <em>
-              <a href="https://github.com/bra1n/townsquare" target="_blank">
+              <a href="https://github.com/davotronic5000/townsquare" target="_blank">
                 <font-awesome-icon :icon="['fab', 'github']" />
               </a>
             </em>
@@ -265,9 +275,15 @@ export default {
       }
     },
     copySessionUrl() {
-      const url = window.location.href.split("#")[0];
+      try{
+        const url = window.location.href.split("#")[0];
       const link = url + "#" + this.session.sessionId;
       navigator.clipboard.writeText(link);
+      }
+      catch (error)
+      {
+      }
+      
     },
     distributeRoles() {
       if (this.session.isSpectator) return;
@@ -290,12 +306,17 @@ export default {
         this.toggleImageOptIn();
       }
     },
+    showModernImages() {
+      this.toggleModernImages();
+    },
     joinSession() {
       if (this.session.sessionId) return this.leaveSession();
       let sessionId = prompt(
         "Enter the channel number / name of the session you want to join"
       );
-      if (sessionId.match(/^https?:\/\//i)) {
+      if (sessionId)
+      {
+        if (sessionId.match(/^https?:\/\//i)) {
         sessionId = sessionId.split("#").pop();
       }
       if (sessionId) {
@@ -304,6 +325,8 @@ export default {
         this.$store.commit("toggleGrimoire", false);
         this.$store.commit("session/setSessionId", sessionId);
       }
+      }
+      
     },
     leaveSession() {
       if (confirm("Are you sure you want to leave the active live game?")) {
@@ -350,6 +373,7 @@ export default {
       "toggleGrimoire",
       "toggleMenu",
       "toggleImageOptIn",
+      "toggleModernImages",
       "toggleMuted",
       "toggleNightOrder",
       "toggleStatic",

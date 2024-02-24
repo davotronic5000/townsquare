@@ -34,9 +34,7 @@
               backgroundImage: `url(${
                 role.image && grimoire.isImageOptIn
                   ? role.image
-                  : require('../../assets/icons/' +
-                      (role.imageAlt || role.id) +
-                      '.png')
+                  : grimoire.modernImages ? require('../../assets/icons/modern/' + (role.imageAlt || role.id) + '.webp') : require('../../assets/icons/classic/' + (role.imageAlt || role.id) + '.png')
               })`,
             }"
           ></span>
