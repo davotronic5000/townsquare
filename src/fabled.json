@@ -144,7 +144,7 @@
     "ability": "One role from off the script will be in play, it can be either a player or a demon bluff."
   },
   {
-    "id": "iamspartacus_fall_of_rome",
+    "id": "iamspartacusfallofrome",
     "reminders": ["I am Spartacus!"],
     "name": "I Am Spartacus!",
     "team": "fabled",
