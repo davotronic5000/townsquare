@@ -23,7 +23,7 @@
     ></video>
 
     <div class="backdrop"></div>
-
+    
     <div class="returnCircle"></div>
 
     <Intro v-if="!players.length"></Intro>
@@ -129,8 +129,8 @@ export default {
           this.$store.commit("toggleModal", "roles");
           break;
         case "t":
-          if (this.session.isSpectator) return;
-          this.$refs.menu.toggleReturnToTown();
+        if (this.session.isSpectator) return;
+          this.$refs.menu.returnToTown();
           break;
         case "v":
           if (this.session.voteHistory.length || !this.session.isSpectator) {
@@ -222,7 +222,25 @@ ul {
   width: 100%;
 }
 
-#app > .returnCircle {
+#townsquare-app {
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+
+  // disable all animations
+  &.static *,
+  &.static *:after,
+  &.static *:before {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+#townsquare-app > .returnCircle {
   position: absolute;
   align-items: center;
   align-content: center;
@@ -245,26 +263,8 @@ ul {
   }
 }
 
-#app.returnToTown > .returnCircle {
+#townsquare-app.returnToTown > .returnCircle {
   opacity: 1;
-}
-
-#townsquare-app {
-  height: 100%;
-  background-position: center center;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-
-  // disable all animations
-  &.static *,
-  &.static *:after,
-  &.static *:before {
-    transition: none !important;
-    animation: none !important;
-  }
 }
 
 #version {
