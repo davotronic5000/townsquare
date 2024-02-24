@@ -1,3 +1,5 @@
+import { faBriefcaseClock } from "@fortawesome/free-solid-svg-icons";
+
 class LiveSession {
   constructor(store) {
     this._wss = "wss://townsquaremsg.clocktower.guru:8080/";
@@ -176,6 +178,10 @@ class LiveSession {
         if (!this._isSpectator) return;
         this._store.commit("toggleNight", params);
         break;
+      case "isReturnTo Town":
+        if (!this._isSpectator) return;
+        this._store.commit("toggleReturnToTown");
+        break;
       case "isVoteHistoryAllowed":
         if (!this._isSpectator) return;
         this._store.commit("session/setVoteHistoryAllowed", params);
@@ -221,9 +227,7 @@ class LiveSession {
     if (!this._store.state.session.playerId) {
       this._store.commit(
         "session/setPlayerId",
-        Math.random()
-          .toString(36)
-          .substr(2)
+        Math.random().toString(36).substr(2)
       );
     }
     this._pings = {};
@@ -281,6 +285,7 @@ class LiveSession {
       this._sendDirect(playerId, "gs", {
         gamestate: this._gamestate,
         isNight: grimoire.isNight,
+        isReturnToTown: grimoire.isReturnToTown,
         isVoteHistoryAllowed: session.isVoteHistoryAllowed,
         isVoteWatchingAllowed: session.isVoteWatchingAllowed,
         nomination: session.nomination,
@@ -305,6 +310,7 @@ class LiveSession {
       gamestate,
       isLightweight,
       isNight,
+      isReturnToTown,
       isVoteHistoryAllowed,
       isVoteWatchingAllowed,
       nomination,
@@ -359,6 +365,7 @@ class LiveSession {
     });
     if (!isLightweight) {
       this._store.commit("toggleNight", !!isNight);
+      this._store.commit("toggleReturnToTown", !!isReturnToTown);
       this._store.commit("session/setVoteHistoryAllowed", isVoteHistoryAllowed);
       this._store.commit(
         "session/setVoteWatchingAllowed",
@@ -713,6 +720,11 @@ class LiveSession {
     this._send("isNight", this._store.state.grimoire.isNight);
   }
 
+  setReturnToTown() {
+    if (this._isSpectator) return;
+    this._send("isReturnToTown", this._store.state.grimoire.isReturnToTown);
+  }
+
   /**
    * Send the isVoteHistoryAllowed state. ST only
    */
@@ -908,6 +920,8 @@ export default (store) => {
       case "toggleNight":
         session.setIsNight();
         break;
+      case "toggleReturnToTown":
+        session.setReturnToTown();
       case "setEdition":
         session.sendEdition();
         break;

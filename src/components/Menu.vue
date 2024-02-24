@@ -58,6 +58,11 @@
             <template v-if="grimoire.isPublic">Show</template>
             <em>[G]</em>
           </li>
+          <li @click="toggleReturnToTown" v-if="!session.isSpectator">
+            <template v-if="!grimoire.isReturnToTown">Return To Town</template>
+            <template v-if="grimoire.isReturnToTown"><l style="color: rgb(174, 174, 174)"><i>Gathering...</i></l></template>
+            <em>T</em>
+          </li>
           <li @click="toggleNight" v-if="!session.isSpectator">
             <template v-if="!grimoire.isNight">Switch to Night</template>
             <template v-if="grimoire.isNight">Switch to Day</template>
@@ -238,6 +243,9 @@
         </template>
       </ul>
     </div>
+    <div id="audioGong" class="playGong" v-if="grimoire.isReturnToTown">
+        <audio :autoplay="!grimoire.isMuted" src="/gong.mp3" :muted="grimoire.isMuted"></audio>
+    </div>
   </div>
 </template>
 
@@ -367,6 +375,14 @@ export default {
       this.$store.commit("toggleNight");
       if (this.grimoire.isNight) {
         this.$store.commit("session/setMarkedPlayer", -1);
+      }
+    },
+    toggleReturnToTown() {
+      if (!this.grimoire.isReturnToTown) {
+        this.$store.commit("toggleReturnToTown");
+        setTimeout(() => {
+          this.$store.commit("toggleReturnToTown");
+        }, 5500)
       }
     },
     ...mapMutations([
