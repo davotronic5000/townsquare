@@ -2,6 +2,7 @@
   <div
     id="townsquare-app"
     @keyup="keyup"
+    @keydown="keydown"
     tabindex="-1"
     :class="{
       night: grimoire.isNight,
@@ -72,6 +73,7 @@ import NightOrderModal from "./components/modals/NightOrderModal";
 import FabledModal from "@/components/modals/FabledModal";
 import VoteHistoryModal from "@/components/modals/VoteHistoryModal";
 import GameStateModal from "@/components/modals/GameStateModal";
+import { faBriefcaseClock, faL } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -99,6 +101,21 @@ export default {
     };
   },
   methods: {
+    toggleEmote(type, value){
+      if (!this.session.playerId) return;
+      const currentPlayer = this.players.find((player) => this.session.playerId);
+      if (!currentPlayer) return;
+      this.$store.commit("players/update", {
+        player: currentPlayer,
+        property: "emoteType",
+        value: type,
+      })
+      this.$store.commit("players/update", {
+        player: currentPlayer,
+        property: "isEmote",
+        value: value,
+      })
+    },
     keyup({ key, ctrlKey, metaKey }) {
       if (ctrlKey || metaKey || this.modals.role) return;
       switch (key.toLocaleLowerCase()) {
@@ -141,10 +158,45 @@ export default {
           if (this.session.isSpectator) return;
           this.$refs.menu.toggleNight();
           break;
+        case "0":
+          this.toggleEmote("hand", false);
+          break;
+        case "1":
+          this.toggleEmote("rock", false);
+          break;
+        case "2":
+          this.toggleEmote("paper", false);
+          break;
+        case "3":
+          this.toggleEmote("scissors", false);
+          break;
+        case "4":
+          this.toggleEmote("spock", false);
+          break;
         case "escape":
           this.$store.commit("toggleModal");
       }
     },
+    keydown({key, ctrlKey, metaKey}) {
+      if (ctrlKey || metaKey || this.modals.role) return;
+      switch (key.toLocaleLowerCase()) {
+        case "0":
+          this.toggleEmote("hand", true);
+          break;
+        case "1":
+          this.toggleEmote("rock", true);
+          break;
+        case "2":
+          this.toggleEmote("paper", true);
+          break;
+        case "3":
+          this.toggleEmote("scissors", true);
+          break;
+        case "4":
+          this.toggleEmote("spock", true);
+          break;
+    }
+  }
   },
 };
 </script>

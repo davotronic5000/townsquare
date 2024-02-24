@@ -15,7 +15,11 @@
             (!session.isSpectator || session.isVoteWatchingAllowed) &&
             session.votes[index],
           'vote-lock': voteLocked,
-          'hand-raised': true,
+          'hand-raised': player.isEmote,
+          rock: player.emoteType === 'rock',
+          paper: player.emoteType === 'paper',
+          scissors: player.emoteType === 'scissors',
+          spock: player.emoteType === 'spock',
         },
         player.role.team,
       ]"
@@ -451,7 +455,23 @@ export default {
     }
     #townsquare.spectator & {
       pointer-events: none;
-    }  
+    }
+  }
+
+  &.hand-raised.rock .emote:before {
+      background: url("../assets/rock.png") center -10px no-repeat;
+    }
+
+  &.hand-raised.paper .emote:before {
+    background: url("../assets/paper.png") center -10px no-repeat;
+  }
+
+  &.hand-raised.scissors .emote:before {
+    background: url("../assets/scissors.png") center -10px no-repeat;
+  }
+
+  &.hand-raised.spock .emote:before {
+    background: url("../assets/spock-hand.png") center -10px no-repeat;
   }
 
   &.hand-raised .emote:before {
