@@ -283,6 +283,8 @@ export const store = Vuex.createStore({
         state.otherTravelers = getTravelersNotInEdition(state.edition);
         state.otherRoles = getRolesNotInEdition(state.edition);
 
+        if (edition.roles === undefined) edition.roles = [];
+
         if (edition.roles);
         {
           if (edition.roles.some((role) => state.fabled.has(role.id || role))) {
