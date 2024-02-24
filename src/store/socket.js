@@ -178,7 +178,7 @@ class LiveSession {
         if (!this._isSpectator) return;
         this._store.commit("toggleNight", params);
         break;
-      case "isReturnTo Town":
+      case "isReturnToTown":
         if (!this._isSpectator) return;
         this._store.commit("toggleReturnToTown");
         break;
