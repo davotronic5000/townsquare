@@ -6,6 +6,7 @@
     :class="{
       night: grimoire.isNight,
       static: grimoire.isStatic,
+      returnToTown: grimoire.isReturnToTown,
     }"
     :style="{
       backgroundImage: grimoire.background
@@ -22,6 +23,8 @@
     ></video>
 
     <div class="backdrop"></div>
+    
+    <div class="returnCircle"></div>
 
     <Intro v-if="!players.length"></Intro>
 
@@ -125,6 +128,10 @@ export default {
           if (this.session.isSpectator) return;
           this.$store.commit("toggleModal", "roles");
           break;
+        case "t":
+        if (this.session.isSpectator) return;
+          this.$refs.menu.returnToTown();
+          break;
         case "v":
           if (this.session.voteHistory.length || !this.session.isSpectator) {
             this.$store.commit("toggleModal", "voteHistory");
@@ -214,6 +221,7 @@ ul {
   height: 100%;
   width: 100%;
 }
+
 #townsquare-app {
   height: 100%;
   background-position: center center;
@@ -230,6 +238,33 @@ ul {
     transition: none !important;
     animation: none !important;
   }
+}
+
+#townsquare-app > .returnCircle {
+  position: absolute;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: opacity 1s ease-in-out;
+  background: url("assets/returntotown.png") center center no-repeat;
+  opacity: 0;
+  background-size: auto 52%;
+  animation: move-returnCircle 12s linear infinite;
+}
+
+@keyframes move-returnCircle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#townsquare-app.returnToTown > .returnCircle {
+  opacity: 1;
 }
 
 #version {
