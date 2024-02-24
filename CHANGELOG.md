@@ -12,6 +12,7 @@
 - Badger added for Plussy McOneface
 - Added support for new JSON format
 - Adding support for modern artwork with ability to switch to classic
+- Selecting a built in script now adds fabled if needed
 
 ---
 

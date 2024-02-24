@@ -282,6 +282,19 @@ export const store = Vuex.createStore({
         state.roles = getRolesByEdition(state.edition);
         state.otherTravelers = getTravelersNotInEdition(state.edition);
         state.otherRoles = getRolesNotInEdition(state.edition);
+
+        if (edition.roles);
+        {
+          if (edition.roles.some((role) => state.fabled.has(role.id || role))) {
+            const fabled = [];
+            edition.roles.forEach((role) => {
+              if (state.fabled.has(role.id || role)) {
+                fabled.push(state.fabled.get(role.id || role));
+              }
+            });
+            state.players.fabled = fabled;
+          }
+        }
       } else {
         state.edition = edition;
       }
