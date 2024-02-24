@@ -1,6 +1,12 @@
 # Release Notes
 
-### Version 3
+### Version 3.1.0
+
+- Added return to townsquare gong and animation, press T to activate
+
+---
+
+### Version 3.0.0
 
 - Upgraded to latest Vue
 - Organ Grinder Support
