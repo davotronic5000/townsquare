@@ -3,6 +3,12 @@
 ### Version 3.1.0
 
 - Added return to townsquare gong and animation, press T to activate
+- Added player emotes, tirggered by the number pad:
+  - 0. Hand Up
+  - 1. Rock
+  - 2. Paper
+  - 3. Scissors
+  - 4. Spock Hand
 
 ---
 
