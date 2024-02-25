@@ -73,7 +73,6 @@ import NightOrderModal from "./components/modals/NightOrderModal";
 import FabledModal from "@/components/modals/FabledModal";
 import VoteHistoryModal from "@/components/modals/VoteHistoryModal";
 import GameStateModal from "@/components/modals/GameStateModal";
-import { faBriefcaseClock, faL } from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
@@ -103,13 +102,15 @@ export default {
   methods: {
     toggleEmote(type, value){
       if (!this.session.playerId) return;
-      const currentPlayer = this.players.find((player) => this.session.playerId);
+      const currentPlayer = this.players.find((player) => this.session.playerId === player.id);
       if (!currentPlayer) return;
-      this.$store.commit("players/update", {
+
+        this.$store.commit("players/update", {
         player: currentPlayer,
         property: "emoteType",
         value: type,
-      })
+      })   
+      
       this.$store.commit("players/update", {
         player: currentPlayer,
         property: "isEmote",

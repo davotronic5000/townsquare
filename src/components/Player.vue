@@ -429,10 +429,7 @@ export default {
     position: absolute;
     width: 60%;
     height: 60%;
-    transform: rotateX(0deg);
-    transform-origin: top left;
     cursor: pointer;
-    transition: transform 200ms ease-in-out;
     z-index: 2;
     pointer-events: none;
     filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));
@@ -448,9 +445,6 @@ export default {
       left: 38%;
       top: -30%;
       opacity: 0;
-      transform: perspective(400px) scale(1.5);
-      transform-origin: top left;
-      transition: all 200ms;
       pointer-events: none;
     }
     #townsquare.spectator & {
@@ -460,25 +454,28 @@ export default {
 
   &.hand-raised.rock .emote:before {
       background: url("../assets/rock.png") center -10px no-repeat;
+      background-size: auto 100%;
     }
 
   &.hand-raised.paper .emote:before {
     background: url("../assets/paper.png") center -10px no-repeat;
+    background-size: auto 100%;
   }
 
   &.hand-raised.scissors .emote:before {
     background: url("../assets/scissors.png") center -10px no-repeat;
+    background-size: auto 100%;
   }
 
   &.hand-raised.spock .emote:before {
     background: url("../assets/spock-hand.png") center -10px no-repeat;
+    background-size: auto 100%;
   }
 
   &.hand-raised .emote:before {
     opacity: 1;
     top: 0;
     pointer-events: none;
-    transform: perspective(400px) scale(1);
   }
 }
 

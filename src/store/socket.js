@@ -213,6 +213,12 @@ class LiveSession {
       case "pronouns":
         this._updatePlayerPronouns(params);
         break;
+      case "emote":
+        this._updateEmote(params);
+        break;
+      case "emoteType":
+        this._updateEmoteType(params);
+        break;
     }
   }
 
@@ -267,6 +273,8 @@ class LiveSession {
       isDead: player.isDead,
       isVoteless: player.isVoteless,
       pronouns: player.pronouns,
+      isEmote: player.isEmote,
+      emoteType: player.emoteType,
       ...(player.role && player.role.team === "traveler"
         ? { roleId: player.role.id }
         : {}),
@@ -335,7 +343,15 @@ class LiveSession {
       const player = players[x];
       const { roleId } = state;
       // update relevant properties
-      ["name", "id", "isDead", "isVoteless", "pronouns"].forEach((property) => {
+      [
+        "name",
+        "id",
+        "isDead",
+        "isVoteless",
+        "pronouns",
+        "isEmote",
+        "emoteType",
+      ].forEach((property) => {
         const value = state[property];
         if (player[property] !== value) {
           this._store.commit("players/update", { player, property, value });
@@ -537,6 +553,65 @@ class LiveSession {
     this._send("pronouns", [index, value]);
   }
 
+  /**
+   * Update isEmote based on incoming data.
+   * @param player
+   * @param value
+   * @param isFromSockets
+   */
+  sendIsEmote({ player, value, isFromSockets }) {
+    if (isFromSockets || this._store.state.session.playerId !== player.id)
+      return;
+    const index = this._store.state.players.players.indexOf(player);
+    this._send("emote", [index, value]);
+  }
+
+  /**
+   * Update EmoteType based on incoming data.
+   * @param player
+   * @param value
+   * @param isFromSockets
+   */
+  sendEmoteType({ player, value, isFromSockets }) {
+    if (isFromSockets || this._store.state.session.playerId !== player.id)
+      return;
+    const index = this._store.state.players.players.indexOf(player);
+    this._send("emoteType", [index, value]);
+  }
+
+  /**
+   * Update a hand raised state based on incoming data.
+   * @param index
+   * @param value
+   * @private
+   */
+  _updateEmote([index, value]) {
+    const player = this._store.state.players.players[index];
+
+    this._store.commit("players/update", {
+      player,
+      property: "isEmote",
+      value,
+      isFromSockets: true,
+    });
+  }
+
+  /**
+   * Update a emote type state based on incoming data.
+   * @param index
+   * @param value
+   * @private
+   */
+  _updateEmoteType([index, value]) {
+    const player = this._store.state.players.players[index];
+
+    this._store.commit("players/update", {
+      player,
+      property: "emoteType",
+      value,
+      isFromSockets: true,
+    });
+  }
   /**
    * Update a pronouns based on incoming data.
    * @param index
@@ -946,6 +1021,10 @@ export default (store) => {
       case "players/update":
         if (payload.property === "pronouns") {
           session.sendPlayerPronouns(payload);
+        } else if (payload.property === "isEmote") {
+          session.sendIsEmote(payload);
+        } else if (payload.property === "emoteType") {
+          session.sendEmoteType(payload);
         } else {
           session.sendPlayer(payload);
         }
