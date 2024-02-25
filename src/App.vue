@@ -104,12 +104,14 @@ export default {
       if (!this.session.playerId) return;
       const currentPlayer = this.players.find((player) => this.session.playerId === player.id);
       if (!currentPlayer) return;
-
+      if (currentPlayer.emoteType !== type)
+      {
         this.$store.commit("players/update", {
         player: currentPlayer,
         property: "emoteType",
         value: type,
-      })   
+      }) 
+      }         
       
       this.$store.commit("players/update", {
         player: currentPlayer,
@@ -174,6 +176,8 @@ export default {
         case "4":
           this.toggleEmote("spock", false);
           break;
+        case "5":
+          this.toggleEmote("ok", false);
         case "escape":
           this.$store.commit("toggleModal");
       }
@@ -195,6 +199,9 @@ export default {
           break;
         case "4":
           this.toggleEmote("spock", true);
+          break;
+        case "5":
+          this.toggleEmote("ok", true);
           break;
     }
   }

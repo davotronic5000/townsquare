@@ -20,6 +20,7 @@
           paper: player.emoteType === 'paper',
           scissors: player.emoteType === 'scissors',
           spock: player.emoteType === 'spock',
+          ok: player.emoteType === 'ok',
         },
         player.role.team,
       ]"
@@ -469,6 +470,11 @@ export default {
 
   &.hand-raised.spock .emote:before {
     background: url("../assets/spock-hand.png") center -10px no-repeat;
+    background-size: auto 100%;
+  }
+
+  &.hand-raised.ok .emote:before {
+    background: url("../assets/hand-ok.png") center -10px no-repeat;
     background-size: auto 100%;
   }
 
