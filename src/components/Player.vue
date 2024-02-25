@@ -15,12 +15,18 @@
             (!session.isSpectator || session.isVoteWatchingAllowed) &&
             session.votes[index],
           'vote-lock': voteLocked,
+          'hand-raised': player.isEmote,
+          rock: player.emoteType === 'rock',
+          paper: player.emoteType === 'paper',
+          scissors: player.emoteType === 'scissors',
+          spock: player.emoteType === 'spock',
         },
         player.role.team,
       ]"
     >
       <div class="shroud" @click="toggleStatus()"></div>
       <div class="life" @click="toggleStatus()"></div>
+      <div class="emote"></div>
 
       <div
         class="night-order first"
@@ -415,6 +421,61 @@ export default {
 
   #townsquare:not(.spectator) &.dead .shroud:hover:before {
     opacity: 1;
+  }
+
+    .emote {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    cursor: pointer;
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));
+
+    &:before {
+      content: " ";
+      background: url("../assets/hand.png") center -10px no-repeat;
+      background-size: auto 100%;
+      position: absolute;
+      margin-left: -100%;
+      width: 100%;
+      height: 100%;
+      left: 38%;
+      top: -30%;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #townsquare.spectator & {
+      pointer-events: none;
+    }
+  }
+
+  &.hand-raised.rock .emote:before {
+      background: url("../assets/rock.png") center -10px no-repeat;
+      background-size: auto 100%;
+    }
+
+  &.hand-raised.paper .emote:before {
+    background: url("../assets/paper.png") center -10px no-repeat;
+    background-size: auto 100%;
+  }
+
+  &.hand-raised.scissors .emote:before {
+    background: url("../assets/scissors.png") center -10px no-repeat;
+    background-size: auto 100%;
+  }
+
+  &.hand-raised.spock .emote:before {
+    background: url("../assets/spock-hand.png") center -10px no-repeat;
+    background-size: auto 100%;
+  }
+
+  &.hand-raised .emote:before {
+    opacity: 1;
+    top: 0;
+    pointer-events: none;
   }
 }
 
