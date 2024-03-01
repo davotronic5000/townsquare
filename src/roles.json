@@ -2212,5 +2212,17 @@
     "name": "Hatter",
     "team": "outsider",
     "ability": "If you died today or tonight, the Minion & Demon players may choose new Minion & Demon characters to be."
-  }
+  },
+  {
+    "id": "yaggababble",
+    "firstNight": 2.2,
+    "firstNightReminder": "Give the yaggababble their secret phrase.",
+    "otherNight": 35.2,
+    "otherNightReminder": "Select a number of players to die up to the number of times the Yaggababble said their phrase.",
+    "reminders": ["Dead"],
+    "setup": false,
+    "name": "Yaggababble",
+    "team": "demon",
+    "ability": "You start knowing a secret phrase. For each time you said it publicly today, a player might die."
+}
 ]
