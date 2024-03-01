@@ -2,10 +2,12 @@
   <div
     id="townsquare-app"
     @keyup="keyup"
+    @keydown="keydown"
     tabindex="-1"
     :class="{
       night: grimoire.isNight,
       static: grimoire.isStatic,
+      returnToTown: grimoire.isReturnToTown,
     }"
     :style="{
       backgroundImage: grimoire.background
@@ -22,6 +24,8 @@
     ></video>
 
     <div class="backdrop"></div>
+    
+    <div class="returnCircle"></div>
 
     <Intro v-if="!players.length"></Intro>
 
@@ -96,6 +100,25 @@ export default {
     };
   },
   methods: {
+    toggleEmote(type, value){
+      if (!this.session.playerId) return;
+      const currentPlayer = this.players.find((player) => this.session.playerId === player.id);
+      if (!currentPlayer) return;
+      if (currentPlayer.emoteType !== type)
+      {
+        this.$store.commit("players/update", {
+        player: currentPlayer,
+        property: "emoteType",
+        value: type,
+      }) 
+      }         
+      
+      this.$store.commit("players/update", {
+        player: currentPlayer,
+        property: "isEmote",
+        value: value,
+      })
+    },
     keyup({ key, ctrlKey, metaKey }) {
       if (ctrlKey || metaKey || this.modals.role) return;
       switch (key.toLocaleLowerCase()) {
@@ -125,6 +148,10 @@ export default {
           if (this.session.isSpectator) return;
           this.$store.commit("toggleModal", "roles");
           break;
+        case "t":
+        if (this.session.isSpectator) return;
+          this.$refs.menu.returnToTown();
+          break;
         case "v":
           if (this.session.voteHistory.length || !this.session.isSpectator) {
             this.$store.commit("toggleModal", "voteHistory");
@@ -134,10 +161,50 @@ export default {
           if (this.session.isSpectator) return;
           this.$refs.menu.toggleNight();
           break;
+        case "0":
+          this.toggleEmote("hand", false);
+          break;
+        case "1":
+          this.toggleEmote("rock", false);
+          break;
+        case "2":
+          this.toggleEmote("paper", false);
+          break;
+        case "3":
+          this.toggleEmote("scissors", false);
+          break;
+        case "4":
+          this.toggleEmote("spock", false);
+          break;
+        case "5":
+          this.toggleEmote("ok", false);
         case "escape":
           this.$store.commit("toggleModal");
       }
     },
+    keydown({key, ctrlKey, metaKey}) {
+      if (ctrlKey || metaKey || this.modals.role) return;
+      switch (key.toLocaleLowerCase()) {
+        case "0":
+          this.toggleEmote("hand", true);
+          break;
+        case "1":
+          this.toggleEmote("rock", true);
+          break;
+        case "2":
+          this.toggleEmote("paper", true);
+          break;
+        case "3":
+          this.toggleEmote("scissors", true);
+          break;
+        case "4":
+          this.toggleEmote("spock", true);
+          break;
+        case "5":
+          this.toggleEmote("ok", true);
+          break;
+    }
+  }
   },
 };
 </script>
@@ -214,6 +281,7 @@ ul {
   height: 100%;
   width: 100%;
 }
+
 #townsquare-app {
   height: 100%;
   background-position: center center;
@@ -230,6 +298,33 @@ ul {
     transition: none !important;
     animation: none !important;
   }
+}
+
+#townsquare-app > .returnCircle {
+  position: absolute;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: opacity 1s ease-in-out;
+  background: url("assets/returntotown.png") center center no-repeat;
+  opacity: 0;
+  background-size: auto 52%;
+  animation: move-returnCircle 12s linear infinite;
+}
+
+@keyframes move-returnCircle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#townsquare-app.returnToTown > .returnCircle {
+  opacity: 1;
 }
 
 #version {

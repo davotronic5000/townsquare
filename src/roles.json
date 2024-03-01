@@ -2223,6 +2223,19 @@
     "setup": true,
     "name": "Village Idiot",
     "team": "townsfolk",
-    "ability": "Each night, choose a player: you learn their alignment. [+0 to +2 Village Idiots. 1 of the extras is drunk]"    }
+    "ability": "Each night, choose a player: you learn their alignment. [+0 to +2 Village Idiots. 1 of the extras is drunk]"    
+  },
+  {
+    "id": "yaggababble",
+    "firstNight": 2.2,
+    "firstNightReminder": "Give the yaggababble their secret phrase.",
+    "otherNight": 35.2,
+    "otherNightReminder": "Select a number of players to die up to the number of times the Yaggababble said their phrase.",
+    "reminders": ["Dead"],
+    "setup": false,
+    "name": "Yaggababble",
+    "team": "demon",
+    "ability": "You start knowing a secret phrase. For each time you said it publicly today, a player might die."
+    }
 ]
 
