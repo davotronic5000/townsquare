@@ -2229,7 +2229,7 @@
     "id": "yaggababble",
     "firstNight": 2.2,
     "firstNightReminder": "Give the yaggababble their secret phrase.",
-    "otherNight": 35.2,
+    "otherNight": 35.1,
     "otherNightReminder": "Select a number of players to die up to the number of times the Yaggababble said their phrase.",
     "reminders": ["Dead"],
     "setup": false,
