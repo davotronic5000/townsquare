@@ -2261,7 +2261,7 @@
 {
   "id": "squid",
   "name": "Squid",
-  "team": "Traveler",
+  "team": "traveler",
   "reminders": [],
   "ability": "You can vote with as many limbs as you can raise."
 }
