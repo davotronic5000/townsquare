@@ -10,7 +10,7 @@
       >!
       <br />
       <em class="blue">
-        {{ voters.length }} vote{{ voters.length !== 1 ? "s" : "" }}
+        {{ voters }} vote{{ voters !== 1 ? "s" : "" }}
       </em>
       in favor
       <em v-if="nominee.role.team !== 'traveler'">
@@ -79,18 +79,28 @@
         <div class="button-group">
           <div
             class="button townsfolk"
-            @click="vote(false)"
+            @click="vote(0)"
             :class="{ disabled: !currentVote }"
           >
             Hand DOWN
           </div>
           <div
             class="button demon"
-            @click="vote(true)"
+            @click="vote(playerCurrentVoteCount)"
             :class="{ disabled: currentVote }"
           >
             Hand UP
           </div>
+        </div>
+        <div v-show="!player.isVoteCountHidden && (player.maxVoteCount !== 1 || player.maxVoteCount !== 0)">
+          Vote Count:
+          <span :style="{ pointerEvents: (player.maxVoteCount > 0 && playerCurrentVoteCount > 1) || (player.maxVoteCount < 0 && playerCurrentVoteCount > player.maxVoteCount)  ? 'auto' : 'none' }" @click="playerCurrentVoteCount = playerCurrentVoteCount - 1">
+              <font-awesome-icon icon="minus-circle" />
+          </span>
+          {{ playerCurrentVoteCount }}
+          <span :style="{ pointerEvents: (player.maxVoteCount > 0 && playerCurrentVoteCount < player.maxVoteCount) || (player.maxVoteCount < 0 && playerCurrentVoteCount < 1) ? 'auto' : 'none' }" @click="playerCurrentVoteCount = playerCurrentVoteCount + 1">
+            <font-awesome-icon icon="plus-circle" />
+          </span>
         </div>
       </template>
       <div v-else-if="!player">Please claim a seat to vote.</div>
@@ -159,6 +169,7 @@ export default {
       if (!this.player) return false;
       if (this.player.isVoteless && this.nominee.role.team !== "traveler")
         return false;
+      //TODO: Add logic here for banshee
       const session = this.session;
       const players = this.players.length;
       const index = this.players.indexOf(this.player);
@@ -168,25 +179,23 @@ export default {
     },
     voters: function () {
       const nomination = this.session.nomination[1];
-      const voters = Array(this.players.length)
-        .fill("")
-        .map((x, index) =>
-          this.session.votes[index] ? this.players[index].name : ""
-        );
+      
       const reorder = [
-        ...voters.slice(nomination + 1),
-        ...voters.slice(0, nomination + 1),
+        ...this.session.votes.slice(nomination + 1),
+        ...this.session.votes.slice(0, nomination + 1),
       ];
       return (
         this.session.lockedVote
           ? reorder.slice(0, this.session.lockedVote - 1)
           : reorder
-      ).filter((n) => !!n);
+      ).filter((n) => !!n)
+      .reduce((acc, cur) => acc + cur, 0);
     },
   },
   data() {
     return {
       voteTimer: null,
+      playerCurrentVoteCount: 1,
     };
   },
   methods: {

@@ -89,8 +89,11 @@ const mutations = {
         players.filter((player) => !player.isDead || isExile).length / 2
       ),
       votes: players
-        .filter((player, index) => state.votes[index])
-        .map(({ name }) => name),
+        .map((player, index) => {
+          const votes = state.votes[index];
+          return { name: player.name, voteCount: votes };
+        })
+        .filter(({ voteCount }) => voteCount),
     });
   },
   clearVoteHistory(state) {
