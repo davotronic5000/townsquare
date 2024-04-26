@@ -1,5 +1,13 @@
 # Release Notes
 
+### Version 3.2.0
+
+- Adding Squid
+- ST can now change the maximum number of votes a player can use to vote with
+- A player with a non-one maximum vote can select how many votes to add to a vote.
+- Fixed return to townsquare gong
+- Also added Banshee
+
 ### Version 3.1.1
 
 - Adding Summoner

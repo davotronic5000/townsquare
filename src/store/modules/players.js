@@ -8,6 +8,8 @@ const NEWPLAYER = {
   pronouns: "",
   isEmote: false,
   emoteType: "hand",
+  maxVoteCount: 1,
+  isVoteCountHidden: false,
 };
 
 const state = () => ({
