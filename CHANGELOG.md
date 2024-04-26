@@ -1,5 +1,9 @@
 # Release Notes
 
+### Version 3.1.1
+
+- Adding Summoner
+
 ### Version 3.1.0
 
 - Added return to townsquare gong and animation, press T to activate
