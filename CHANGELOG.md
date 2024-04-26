@@ -3,9 +3,10 @@
 ### Version 3.2.0
 
 - Adding Squid
-- ST can now change the maximum number of votes a player can use to vote with
+- ST can now change the maximum number of votes a player can use to vote with (-9 - +9)
 - A player with a non-one maximum vote can select how many votes to add to a vote.
 - Fixed return to townsquare gong
+- Made default voting speed 1 second from 3 seconds.
 - Also added Banshee
 
 ### Version 3.1.1
