@@ -150,7 +150,7 @@ export default {
           break;
         case "t":
         if (this.session.isSpectator) return;
-          this.$refs.menu.returnToTown();
+          this.$refs.menu.toggleReturnToTown();
           break;
         case "v":
           if (this.session.voteHistory.length || !this.session.isSpectator) {

@@ -56,6 +56,7 @@
       <!-- Overlay icons -->
       <div class="overlay" @click="vote()">
         <font-awesome-icon icon="hand-paper" class="vote" title="Hand UP" />
+        <span v-show="session.votes[index] && session.votes[index] !== 1" class="vote-count">{{session.votes[index]}}</span>
       </div>
       <div class="overlay" @click="vote()">
         <font-awesome-icon icon="xmark" class="vote" title="Hand DOWN" />
@@ -159,6 +160,18 @@
                 Nomination
               </li>
             </template>
+            <li>
+            Change vote count
+            <em>
+              <span :style="{ pointerEvents: player.maxVoteCount > -9 ? 'auto' : 'none' }" @click="updatePlayer('maxVoteCount', player.maxVoteCount - 1 , false)">
+                <font-awesome-icon icon="minus-circle" />
+              </span>
+              {{ player.maxVoteCount }}
+              <span :style="{ pointerEvents: player.maxVoteCount < 9 ? 'auto' : 'none' }" @click="updatePlayer('maxVoteCount', player.maxVoteCount + 1 , false)">
+                <font-awesome-icon icon="plus-circle" />
+              </span>
+            </em>
+          </li>
           </template>
           <li
             @click="claimSeat"
@@ -586,6 +599,17 @@ export default {
     content: " ";
     display: block;
     padding-top: 100%;
+  }
+  .vote-count {
+    z-index: 100;
+    border-radius: 50%;
+    background-color: purple;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
   }
 }
 .player .overlay svg {

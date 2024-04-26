@@ -67,7 +67,7 @@
           <td>{{ vote.nominee }}</td>
           <td>{{ vote.type }}</td>
           <td>
-            {{ vote.votes.length }}
+            {{ vote.votes.reduce((acc, curr) => acc + curr.voteCount, 0) }}
             <font-awesome-icon icon="hand-paper" />
           </td>
           <td>
@@ -80,7 +80,12 @@
             />
           </td>
           <td>
-            {{ vote.votes.join(", ") }}
+            {{ vote.votes.map(({ name, voteCount }) => {
+              if (voteCount !== 1) {
+                return `${name} (${voteCount})`
+              }
+              return name;
+            }).join(", ") }}
           </td>
         </tr>
       </tbody>
