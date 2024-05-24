@@ -2264,6 +2264,14 @@
   "team": "traveler",
   "reminders": [],
   "ability": "You can vote with as many limbs as you can raise."
+},
+{
+  "id": "ogre",
+  "firstNight": 49.1,
+  "firstNightReminder": "The Ogre points to a player (not themselves) and becomes their alignment.",
+  "name": "Ogre",
+  "team": "outsider",
+  "ability": "On your 1st night, choose a player (not yourself): you become their alignment (you don't know which) even if drunk or poisoned."
 }
 ]
 
