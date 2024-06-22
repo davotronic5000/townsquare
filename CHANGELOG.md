@@ -1,5 +1,9 @@
 # Release Notes
 
+### Version 3.2.2
+
+- Fixing bug in ogre definition in roles.json
+
 ### Version 3.2.1
 
 - Ading Ogre to avaialable roles
