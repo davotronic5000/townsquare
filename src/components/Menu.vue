@@ -105,16 +105,6 @@
                 ]"
             /></em>
           </li>
-          <li @click="showModernImages">
-          <small>Show Modern Images</small>
-          <em
-              ><font-awesome-icon
-                :icon="[
-                  'fas',
-                  grimoire.modernImages ? 'check-square' : 'square',
-                ]"
-            /></em>
-        </li>
           <li @click="toggleStatic">
             Disable Animations
             <em

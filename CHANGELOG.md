@@ -1,4 +1,15 @@
 # Release Notes
+### Version 3.2.3
+
+- Updated ability for Organ Grinder
+- Updated ability for Baloonist
+- Updated ability for Plague Doctor
+- Acrobat is now a townsfolk
+- Updated King Ability
+- Added in Al-Sahirr
+- Added in Zealot
+- Added in Lord of Typhon
+- Added in Boffin
 
 ### Version 3.2.2
 
