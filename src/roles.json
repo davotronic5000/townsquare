@@ -2197,6 +2197,7 @@
     "setup": false,
     "name": "Shugenja",
     "team": "townsfolk",
+    "reminders":[],
     "ability": "You start knowing if your closest evil player is clockwise or anti-clockwise. If equidistant, this info is arbitrary."
   },
   {
@@ -2308,6 +2309,7 @@
   "firstNightReminder": "Wake the Boffin and how them the token of the ability the Demon has. Put the Boffin back to sleep. Wake the Demon, show the Boffin token, then show the token of the good ability the Demon has.",
   "name": "Boffin",
   "team": "minion",
+  "reminders": [],
   "ability": "The Demon (even if drunk or poisoned) has a not-in-play good character’s ability. You both know which."
 }
 ]
